@@ -1340,31 +1340,31 @@
       
       // Initialize everything
       function init() {
-        // Set up event listeners
-        setupEventListeners();
-        
-        // Load cached exchange rates if available
-        const storedRates = localStorage.getItem('exchangeRates');
-        if (storedRates && updateTimeEl) {
-          const storedTimestamp = localStorage.getItem('ratesLastUpdated');
-          conversionData.currency.rates = JSON.parse(storedRates);
-          updateTimeEl.innerHTML = `<i class="fas fa-history"></i> Rates from ${new Date(storedTimestamp).toLocaleString()}`;
-        }
-        
-        // Populate unit dropdowns
-        populateUnitDropdowns();
-        
-        // Check if we have conversion parameters in URL
-        loadFromUrlHash();
-        
-        // Initial conversion calculation (if not already done by loadFromUrlHash)
-        if (!window.location.hash) {
-          convert();
-        }
-        
-        // Fetch fresh exchange rates
-        fetchLiveExchangeRates();
-      }
+  // Populate unit dropdowns first
+  populateUnitDropdowns();
+  
+  // Then set up event listeners
+  setupEventListeners();
+  
+  // Load cached exchange rates if available
+  const storedRates = localStorage.getItem('exchangeRates');
+  if (storedRates && updateTimeEl) {
+    const storedTimestamp = localStorage.getItem('ratesLastUpdated');
+    conversionData.currency.rates = JSON.parse(storedRates);
+    updateTimeEl.innerHTML = `<i class="fas fa-history"></i> Rates from ${new Date(storedTimestamp).toLocaleString()}`;
+  }
+  
+  // Check if we have conversion parameters in URL
+  loadFromUrlHash();
+  
+  // Initial conversion calculation (if not already done by loadFromUrlHash)
+  if (!window.location.hash) {
+    convert();
+  }
+  
+  // Fetch fresh exchange rates
+  fetchLiveExchangeRates();
+}
       
       // Run initialization
       init();
